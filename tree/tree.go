@@ -7,13 +7,28 @@ import (
 )
 
 type HuffmanTree struct {
-	root *HuffmanNode
+	root   *HuffmanNode
+	Lookup Lookup
+	data   []interface{}
 }
 
-func NewHuffmanTree() *HuffmanTree {
+func New() *HuffmanTree {
 	return &HuffmanTree{
-		root: NewNode(nil),
+		root:   NewNode(nil),
+		Lookup: make(Lookup),
 	}
+}
+
+func (t *HuffmanTree) Put(data []interface{}) {
+	t.data = append(t.data, data)
+
+	t.calibrate()
+}
+
+func (t *HuffmanTree) Update(data []interface{}) {
+	t.data = data
+
+	t.calibrate()
 }
 
 // DebugPrint: Prints the tree using BFS for debugging
@@ -21,11 +36,20 @@ func (t *HuffmanTree) DebugPrint() {
 	t.root.debugPrint()
 }
 
-func FromList(data any) *HuffmanTree {
+func FromList(data []interface{}) *HuffmanTree {
+	t := New()
+	t.data = data
+
+	t.calibrate()
+
+	return t
+}
+
+func (t *HuffmanTree) calibrate() {
 	pq := HuffmanPQueue{}
 	heap.Init(&pq)
 
-	freq := utils.CalculateFreq(data.([]interface{}))
+	freq := utils.CalculateFreq(t.data)
 	for k, v := range freq {
 		heap.Push(&pq, NewWithCount(k, v))
 	}
@@ -36,8 +60,7 @@ func FromList(data any) *HuffmanTree {
 		heap.Push(&pq, Join(n1, n2))
 	}
 
-	t := NewHuffmanTree()
 	t.root = heap.Pop(&pq).(*HuffmanNode)
 
-	return t
+	t.MakeLookUp(t.root, "", &t.Lookup)
 }

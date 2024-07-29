@@ -10,7 +10,7 @@ This is just for me to learn how to do it :)
 - [x] Node
 - [x] Priority Queue
 - [x] Huffman Tree
-- [ ] Encode
-- [ ] Decode
-- [ ] Print Tree
+- [x] Encode
+- [x] Decode
+- [x] Print Tree
 - [ ] Prod Ready
