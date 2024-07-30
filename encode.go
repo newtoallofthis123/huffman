@@ -1,4 +1,4 @@
-package tree
+package huffman
 
 import "fmt"
 
@@ -21,22 +21,31 @@ func (t *HuffmanTree) MakeLookUp(n *HuffmanNode, path string, table *Lookup) {
 	}
 }
 
-func (t *HuffmanTree) Encode() string {
+func (t *HuffmanTree) Encode() []uint8 {
 	res := ""
+	binary := make([]uint8, 0)
 
 	for _, thing := range t.data {
 		res += t.Lookup[thing]
 	}
 
-	return res
+	for _, r := range res {
+		if r == '0' {
+			binary = append(binary, 0)
+		} else {
+			binary = append(binary, 1)
+		}
+	}
+
+	return binary
 }
 
-func (t *HuffmanTree) Decode(msg string) []interface{} {
+func (t *HuffmanTree) Decode(msg []uint8) []interface{} {
 	res := make([]interface{}, 0)
 	curr := t.root
 
 	for _, b := range msg {
-		if b == '0' {
+		if b == 0 {
 			curr = curr.left
 		} else {
 			curr = curr.right
