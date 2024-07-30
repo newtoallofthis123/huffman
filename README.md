@@ -1,6 +1,7 @@
 # Huffman
 
 Huffman encoding library implemented in Go
+This does not include any type of Reader or Writer although it is planned.
 
 ## Installation
 
