@@ -4,6 +4,8 @@ import "fmt"
 
 type Lookup map[interface{}]string
 
+// MakeLookUp creates the lookup table
+// This is used internally, however can be used to make a lookup table of any data
 func (t *HuffmanTree) MakeLookUp(n *HuffmanNode, path string, table *Lookup) {
 	if n == nil {
 		t.MakeLookUp(t.root, path, table)
@@ -21,6 +23,7 @@ func (t *HuffmanTree) MakeLookUp(n *HuffmanNode, path string, table *Lookup) {
 	}
 }
 
+// Encode encodes the data present in the huffman tree to a binary array
 func (t *HuffmanTree) Encode() []uint8 {
 	res := ""
 	binary := make([]uint8, 0)
@@ -40,6 +43,7 @@ func (t *HuffmanTree) Encode() []uint8 {
 	return binary
 }
 
+// Decode decodes a binary array into the base data presented in a huffman tree
 func (t *HuffmanTree) Decode(msg []uint8) []interface{} {
 	res := make([]interface{}, 0)
 	curr := t.root
