@@ -61,10 +61,11 @@ func ConvertBinaryToString(b []uint8) (string, error) {
 	return res, nil
 }
 
+// ConvertInterfaceToString converts a slice of interface{} to a string.
 func ConvertInterfaceToString(data []interface{}) string {
 	res := ""
 	for _, d := range data {
-		res += fmt.Sprintf("%v", d)
+		res += fmt.Sprintf("%c", d)
 	}
 	return res
 }
