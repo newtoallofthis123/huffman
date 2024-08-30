@@ -60,3 +60,11 @@ func ConvertBinaryToString(b []uint8) (string, error) {
 
 	return res, nil
 }
+
+func ConvertInterfaceToString(data []interface{}) string {
+	res := ""
+	for _, d := range data {
+		res += fmt.Sprintf("%v", d)
+	}
+	return res
+}
